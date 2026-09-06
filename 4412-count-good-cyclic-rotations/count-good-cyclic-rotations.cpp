@@ -1,7 +1,7 @@
 class Solution {
 public:
     int countGoodRotations(vector<int>& nums) {
-        int n = nums.size();
+        int n = nums.size();  
         long long sum1 = 0;
         long long sum2 = 0;
         for(int i = 0;i<n/2;i++){
@@ -15,15 +15,20 @@ public:
         int count1 = 0;
         int count2 = 0;
         if(sum1>sum2){count1++;}
-        for(int i = 0;i<n-1;i++){
+        if(sum1<sum2){count2++;}
+
+        for(int i = 0;i<n/2-1;i++){
            sum1 =  sum1-nums[lp]+nums[hp];
            sum2 =  sum2-nums[hp]+nums[lp]; 
-            lp = (lp + 1) % n;
-            hp = (hp + 1) % n;
+            lp++;
+            hp++;
            if(sum1>sum2){
             count1++;
-           }     
+           } 
+           if(sum2>sum1){
+            count2++;
+           }
         }
-        return count1;
+        return count1+count2;
     }
 };
